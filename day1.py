@@ -6,7 +6,6 @@ horizontal = 0
 vertical = 0
 coordinates = {"0:0"}
 current_direction = 'N'
-step_number = 0
 crossed = False
 cross_point = ""
 
