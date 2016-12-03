@@ -1,23 +1,37 @@
-trianglea = 0
+triangles = 0
 nlines = 0
 
-triangles = [[], [], []]
+triangles_row1 = []
+triangles_row2 = []
+triangles_row3 = []
 
+def check_if_triangle(sides):
+    global triangles
+    sides = sorted(sides)
+    print(sides)
+    if sides[2] < sides[0] + sides[1]:
+        triangles += 1
 
 
 with open("day3.txt") as f:
     for line in f.readlines():
-        nlines += 1
         sides = line.strip().split()
-        sides[0] = int(sides[0].strip())
-        sides[1] = int(sides[1].strip())
-        sides[2] = int(sides[2].strip())
+        triangles_row1.append(int(sides[0].strip()))
+        triangles_row2.append(int(sides[1].strip()))
+        triangles_row3.append(int(sides[2].strip()))
+        nlines += 1
 
-        sides = sorted(sides)
-        if sides[2] < sides[0] + sides[1]:
-            print('triangle h=' + str(sides[2]) + ' k1= ' + str(sides[0]) + ' k2= ' + str(sides[1]))
-            trianglea += 1
-            print(str(trianglea))
-print(str(trianglea))
+all_triangles = triangles_row1 + triangles_row2 +triangles_row3
+
+counter = 0
+
+while counter < len(all_triangles):
+    sides_to_check = all_triangles[counter:counter+3]
+    print(all_triangles)
+    counter +=3
+    check_if_triangle(sides_to_check)
+
+print(triangles)
+
 
 
