@@ -1,5 +1,7 @@
 import re
 
+rooms = []
+
 def get_checksum(room):
     counts = {}
     for char in room:
@@ -17,15 +19,19 @@ def get_checksum(room):
                 chars += char
 
         checksum +=  ''.join(sorted(chars))
+    return checksum[:5]
 
-    print('checksum is : ' + checksum)
+with open('day4.txt') as file:
+    rooms = file.readlines()
 
 
+parts = re.compile(r'([a-z-]+)(\d+)\[(.+)\]')
 
-splitparts = re.compile(r'([a-z-]+)(\d+)\[(.+)\]')
-teststr = 'aaaaa-bbb-z-y-x-123[abxyz]'
-testa = re.split(splitparts, teststr)
-#print(str(testa))
-print(testa)
+id_sum = 0
 
-get_checksum('abcddefffgggghhi')
+for room in rooms:
+    room_parts = re.split(parts, room)
+    if room_parts[3] == get_checksum(room_parts[1].replace('-' , '')):
+        id_sum += int(room_parts[2])
+
+print('Sum is ' + str(id_sum))
