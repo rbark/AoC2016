@@ -40,12 +40,10 @@ print(decrypt('a', 105))
 
 for room in rooms:
     room_parts = re.split(parts, room)
-    #print(room_parts)
     if room_parts[3] == get_checksum(room_parts[1]):
         roomname= ''
         for c in room_parts[1]:
             roomname += ''.join(decrypt(c, int(room_parts[2])))
-        #print(roomname)
         if 'north' in roomname:
             print(roomname + ': ' + room_parts[2])
         id_sum += int(room_parts[2])
