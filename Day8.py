@@ -3,7 +3,7 @@ import re
 WIDTH = 50
 HEIGHT = 6
 
-matrix = [[0 for j in range(WIDTH)] for i in range(HEIGHT)]  # array with 8 dicts
+matrix = [[0 for j in range(WIDTH)] for i in range(HEIGHT)] 
 
 rect_pattern = r'rect ([0-9]+)x([0-9]+)'
 rotate_row_pattern = r'rotate row y=([0-9]+) by ([0-9]+)'
