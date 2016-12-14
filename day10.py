@@ -9,7 +9,6 @@ bot_give_instruction_pattern = re.compile(r'bot (\d+) gives low to (bot|output) 
 
 with open("day10.txt") as f:
     for instruction in f.readlines():
-        print(instruction)
         bot_gets = re.search(bot_get_value_pattern, instruction)
         bot_gives = re.search(bot_give_instruction_pattern, instruction)
 
@@ -34,39 +33,37 @@ with open("day10.txt") as f:
             instructions[bot] = [bot_low_number, low_output, bot_high_number, hi_output]
 
 # print(instructions)
-
-
-while 1:
+not_done = True
+sum = 0
+while not_done:
     for bot, chips in bot_storage.items():
-        print('apa')
+        print(str(bot) + ':' + str(chips) )
         if len(chips) == 2 and bot in instructions:
-            done = False
-            if 61 in chips and 17 in chips:
-                print(bot)
-                done = True
-                break
             instruction = instructions[bot]
             min = sorted(chips)[0]
             max = sorted(chips)[1]
             if instruction[1] == 'bot':
-                print('bot ' + str(bot) + ' gives ' + str(min) + ' to ' + str(instruction[0]))
                 bot_storage[instruction[0]].append(min)
             else:
+                print(instruction[0])
                 if instruction[0] not in output_storage:
                     output_storage[instruction[0]] = [min]
-                else: 
+                else:
                     output_storage[instruction[0]].append(min)
+                print(output_storage)
             if instruction[3] == 'bot':
-                print('bot ' + str(bot) + ' gives ' + str(max) + ' to ' + str(instruction[2]))
                 bot_storage[instruction[2]].append(max)
             else:
                 if instruction[2] not in output_storage:
                     output_storage[instruction[2]] = [max]
-                else: 
-                    output_storage[instruction[2]].append(max)    
+                else:
+                    output_storage[instruction[2]].append(max)
 
             bot_storage[bot] = []
+            if output_storage.get(0) and output_storage.get(1) and output_storage.get(2):
+                print(output_storage)
+                sum = output_storage[0][0] * output_storage[1][0] * output_storage[2][0]
+                not_done = False
             
-print('test')            
-print(output_storage)
             # botnummer : till vem låg, bot/output, till vem hög, bot/output
+print('svar:' + str(sum))
